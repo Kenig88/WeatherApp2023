@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">WeatherApp2023</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="condition">Sunny</string>
+    <string name="city">Moscow</string>
+    <string name="hours">hours</string>
+    <string name="days">days</string>
 </resources>

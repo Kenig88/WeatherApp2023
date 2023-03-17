@@ -1,11 +1,11 @@
-package com.example.weatherapp2023
+package com.example.weatherapp2023.activity
 
 import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.os.PersistableBundle
+import com.example.weatherapp2023.R
 
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {

@@ -5,16 +5,45 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.weatherapp2023.R
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.weatherapp2023.adapters.MainViewModel
+import com.example.weatherapp2023.adapters.WeatherAdapter
+import com.example.weatherapp2023.adapters.WeatherModel
+import com.example.weatherapp2023.databinding.FragmentDaysBinding
+import org.json.JSONArray
+import org.json.JSONObject
 
-class DaysFragment : Fragment() {
+class DaysFragment : Fragment() { //6.1
+    private lateinit var binding: FragmentDaysBinding
+    private lateinit var adapter: WeatherAdapter //11
+    private val model: MainViewModel by activityViewModels() //11.4
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_days, container, false)
+    ): View {
+        binding = FragmentDaysBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) { //11.1
+        super.onViewCreated(view, savedInstanceState)
+        initRcView() //11.3
+        updateDaysFragment() //11.6
+    }
+
+    private fun initRcView() = with(binding){ //11.2
+        rcViewDays.layoutManager = LinearLayoutManager(activity as AppCompatActivity)
+        adapter = WeatherAdapter()
+        rcViewDays.adapter = adapter
+    }
+
+    private fun updateDaysFragment() = with(binding){ //11.5
+        model.liveDataDaysList.observe(viewLifecycleOwner){
+            adapter.submitList(it)
+        }
     }
 
     companion object {

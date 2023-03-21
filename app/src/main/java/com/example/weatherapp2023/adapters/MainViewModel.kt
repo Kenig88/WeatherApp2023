@@ -4,6 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class MainViewModel : ViewModel() { //2
-    val liveDataMainCard = MutableLiveData<String>()
-    val liveDataRecyclerList = MutableLiveData<List<String>>()
+    val liveDataMainCard = MutableLiveData<WeatherModel>()
+    val liveDataDaysList = MutableLiveData<List<WeatherModel>>()
 }

@@ -35,7 +35,7 @@ class HoursFragment : Fragment() { //6
 
     private fun initRcView() = with(binding){ //7.3
         rcViewHours.layoutManager = LinearLayoutManager(activity as AppCompatActivity)
-        adapter = WeatherAdapter()
+        adapter = WeatherAdapter(null) //12.5 (Listener)
         rcViewHours.adapter = adapter
         updateHoursFragment() //10.3
     }
@@ -51,7 +51,7 @@ class HoursFragment : Fragment() { //6
                 json.getJSONObject("condition").getString("text"),
                 json.getJSONObject("condition").getString("icon"),
                 "",
-                json.getString("temp_c"),
+                json.getString("temp_c") + "°",
                 "",
                 ""
             )

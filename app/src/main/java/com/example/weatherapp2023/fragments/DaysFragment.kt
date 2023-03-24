@@ -12,10 +12,9 @@ import com.example.weatherapp2023.adapters.MainViewModel
 import com.example.weatherapp2023.adapters.WeatherAdapter
 import com.example.weatherapp2023.adapters.WeatherModel
 import com.example.weatherapp2023.databinding.FragmentDaysBinding
-import org.json.JSONArray
-import org.json.JSONObject
 
-class DaysFragment : Fragment() { //6.1
+
+class DaysFragment() : Fragment(), WeatherAdapter.Listener { //6.1//12.2
     private lateinit var binding: FragmentDaysBinding
     private lateinit var adapter: WeatherAdapter //11
     private val model: MainViewModel by activityViewModels() //11.4
@@ -36,7 +35,7 @@ class DaysFragment : Fragment() { //6.1
 
     private fun initRcView() = with(binding){ //11.2
         rcViewDays.layoutManager = LinearLayoutManager(activity as AppCompatActivity)
-        adapter = WeatherAdapter()
+        adapter = WeatherAdapter(this@DaysFragment) //12.4
         rcViewDays.adapter = adapter
     }
 
@@ -49,5 +48,9 @@ class DaysFragment : Fragment() { //6.1
     companion object {
         @JvmStatic
         fun newInstance() = DaysFragment()
+    }
+
+    override fun onClick(wM: WeatherModel) { //12.3
+        model.liveDataMainCard.value = wM //12.8
     }
 }

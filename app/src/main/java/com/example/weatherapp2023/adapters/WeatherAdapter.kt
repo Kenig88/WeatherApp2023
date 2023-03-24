@@ -11,8 +11,9 @@ import com.example.weatherapp2023.databinding.WeatherModelItemBinding
 import com.squareup.picasso.Picasso
 
 
-class WeatherAdapter : ListAdapter<WeatherModel, WeatherAdapter.Holder>(Comparator()) { //7
-    class Holder(view: View) : RecyclerView.ViewHolder(view){
+class WeatherAdapter(val listener: Listener?) : ListAdapter<WeatherModel,
+        WeatherAdapter.Holder>(Comparator()) { //7 //12.1
+    class Holder(view: View, val listener: Listener?) : RecyclerView.ViewHolder(view){ //12.6(Listener)
         private val binding = WeatherModelItemBinding.bind(view)
 
         fun bind(wM: WeatherModel) = with(binding){
@@ -20,13 +21,16 @@ class WeatherAdapter : ListAdapter<WeatherModel, WeatherAdapter.Holder>(Comparat
             tvCondition.text = wM.condition
             tvTemp.text = wM.currentTemp.ifEmpty { "${wM.maxTemp}°/${wM.minTemp}°" }
             Picasso.get().load("https:" + wM.icon).into(im)
+            itemView.setOnClickListener{ //12.7
+                listener?.onClick(wM)
+            }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.weather_model_item, parent, false)
-        return Holder(view)
+        return Holder(view, listener) //12.9 (listener)
     }
     override fun onBindViewHolder(holder: Holder, position: Int) {
        holder.bind(getItem(position))
@@ -39,5 +43,9 @@ class WeatherAdapter : ListAdapter<WeatherModel, WeatherAdapter.Holder>(Comparat
         override fun areContentsTheSame(oldItem: WeatherModel, newItem: WeatherModel): Boolean {
             return oldItem == newItem
         }
+    }
+
+    interface Listener { //12
+        fun onClick(wM: WeatherModel)
     }
 }

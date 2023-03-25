@@ -33,7 +33,7 @@ class WeatherAdapter(val listener: Listener?) : ListAdapter<WeatherModel,
         return Holder(view, listener) //12.9 (listener)
     }
     override fun onBindViewHolder(holder: Holder, position: Int) {
-       holder.bind(getItem(position))
+        holder.bind(getItem(position))
     }
 
     class Comparator : DiffUtil.ItemCallback<WeatherModel>(){

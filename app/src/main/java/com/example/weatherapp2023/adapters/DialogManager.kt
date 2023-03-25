@@ -29,11 +29,11 @@ object DialogManager { //14
         val dialog = builder.create()
         dialog.setTitle("City name:")
 
-        dialog.setButton(AlertDialog.BUTTON_POSITIVE, "Ok") { _, _ ->
+        builder.setPositiveButton("Ok") { _, _ ->
             listener.onClick(edText.text.toString())
             dialog.dismiss()
         }
-        dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel") { _, _ ->
+        builder.setNegativeButton("Cancel") { _, _ ->
             dialog.dismiss()
         }
         dialog.show()

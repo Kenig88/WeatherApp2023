@@ -150,10 +150,10 @@ class MainFragment : Fragment() { //1
             Request.Method.GET,
             url,
             {
-                response -> parseWeatherData(response) //8.4
+                    response -> parseWeatherData(response) //8.4
             },
             {
-                error -> Log.d("MyLog", "Error: $error")
+                    error -> Log.d("MyLog", "Error: $error")
             },
         )
         queue.add(request)
